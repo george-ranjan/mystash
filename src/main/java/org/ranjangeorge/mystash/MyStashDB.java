@@ -78,4 +78,82 @@ public class MyStashDB {
             }
         }
     }
+
+    public void saveCredit(CreditInfo theCredit)
+            throws SQLException {
+
+        // Update Balance
+        try (Connection conn = DriverManager.getConnection(
+                dbConnectionUrl, dbUserName, dbPassword)) {
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "insert into transaction_log (amount, description, " +
+                            "txntime, txntype) " +
+                            "values (?, ?, ?, ?)")) {
+
+                stmt.setDouble(1,
+                        theCredit.getAmount());
+                stmt.setString(2,
+                        theCredit.getDescription());
+                stmt.setTimestamp(3,
+                        new Timestamp(theCredit.getDate().getTime()));
+                stmt.setString(4,
+                        "CREDIT");
+
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated != 1) {
+                    throw new SQLException("Should have inserted 1 " +
+                            "transaction, rows inserted were " +
+                            rowsUpdated);
+                }
+
+                conn.commit();
+
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            }
+        }
+    }
+
+    public void saveDebit(DebitInfo theDebit)
+            throws SQLException {
+
+        // Update Balance
+        try (Connection conn = DriverManager.getConnection(
+                dbConnectionUrl, dbUserName, dbPassword)) {
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "insert into transaction_log (amount, description, " +
+                            "txntime, txntype) " +
+                            "values (?, ?, ?, ?)")) {
+
+                stmt.setDouble(1,
+                        theDebit.getAmount());
+                stmt.setString(2,
+                        theDebit.getDescription());
+                stmt.setTimestamp(3,
+                        new Timestamp(theDebit.getDate().getTime()));
+                stmt.setString(4,
+                        "DEBIT");
+
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated != 1) {
+                    throw new SQLException("Should have inserted 1 " +
+                            "transaction, rows inserted were " +
+                            rowsUpdated);
+                }
+
+                conn.commit();
+
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            }
+        }
+    }
 }
