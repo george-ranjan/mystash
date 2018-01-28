@@ -1,51 +1,23 @@
 package org.ranjangeorge.mystash;
 
-import java.sql.SQLException;
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 
 public class MyStashService {
 
-    private MyStashDB myStashDB;
+    private MyStashServiceMapper serviceMapper;
 
-    public MyStashService(MyStashDB myStashDB) {
-        this.myStashDB = myStashDB;
+    public MyStashService(MyStashServiceMapper serviceMapper) {
+        this.serviceMapper = serviceMapper;
     }
 
-    // Record an income
-    public void credit(CreditInfo theCredit) throws SQLException {
+    @Nullable
+    public Object doUsecase(
+            @NotNull String usecaseName,
+            @Nullable Object input) {
 
-        // Get Balance
-        double balance = myStashDB.fetchBalance();
-
-        // Increase the balance by the amount
-        balance = BalanceModifier.credit(
-                balance, theCredit.getAmount());
-
-        // Update Balance
-        myStashDB.saveBalance(balance);
-
-        // Save the Credit
-        myStashDB.saveCredit(theCredit);
-    }
-
-    // Record expense
-    public void debit(DebitInfo theDebit) throws SQLException {
-
-        // Get Balance
-        double balance = myStashDB.fetchBalance();
-
-        // Reduce the balance by the amount
-        balance = BalanceModifier.debit(balance, theDebit.getAmount());
-
-        // Update Balance
-        myStashDB.saveBalance(balance);
-
-        // Save Transaction
-        myStashDB.saveDebit(theDebit); // ADDED THIS LINE
-    }
-
-    // Track my balance
-    public double getBalance() throws SQLException {
-
-        return myStashDB.fetchBalance();
+        IService service = serviceMapper.getService(usecaseName);
+        Object result = service.doUsecase(input);
+        return result;
     }
 }
