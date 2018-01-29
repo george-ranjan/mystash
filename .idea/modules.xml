@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mystash.iml" filepath="$PROJECT_DIR$/mystash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mystash-service/mystash-service.iml" filepath="$PROJECT_DIR$/mystash-service/mystash-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mystash-service-api/mystash-service-api.iml" filepath="$PROJECT_DIR$/mystash-service-api/mystash-service-api.iml" />
     </modules>
   </component>
 </project>
