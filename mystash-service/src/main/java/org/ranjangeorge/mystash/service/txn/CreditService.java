@@ -1,32 +1,37 @@
 package org.ranjangeorge.mystash.service.txn;
 
-import org.ranjangeorge.mystash.persistence.MyStashDB;
+import com.sun.istack.internal.NotNull;
+import org.ranjangeorge.mystash.persistence.IMyStashDAO;
 import org.ranjangeorge.mystash.service.data.CreditInfo;
 
 import java.sql.SQLException;
 
 public class CreditService {
 
-    private MyStashDB myStashDB;
+    private IMyStashDAO myStashDAO;
 
-    public CreditService(MyStashDB myStashDB) {
-        this.myStashDB = myStashDB;
+    public CreditService(
+            @NotNull final IMyStashDAO myStashDAO) {
+        this.myStashDAO = myStashDAO;
     }
 
     // Record an income
-    public void credit(CreditInfo theCredit) throws SQLException {
+    public void credit(
+            @NotNull final String stashId,
+            @NotNull final CreditInfo credit)
+            throws SQLException {
 
-        // Get Balance
-        double balance = myStashDB.fetchBalance();
+        // Get Stash
+        Stash stash = myStashDAO.fetch(
+                Stash.class, stashId);
 
         // Increase the balance by the amount
-        balance = BalanceModifier.credit(
-                balance, theCredit.getAmount());
+        stash.credit(credit.getAmount());
 
         // Update Balance
-        myStashDB.saveBalance(balance);
+        myStashDAO.save(Stash.class, stash);
 
-        // Save the Credit
-        myStashDB.saveCredit(theCredit);
+        // Save Transaction
+        myStashDAO.save(CreditInfo.class, credit);
     }
 }

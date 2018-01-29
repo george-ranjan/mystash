@@ -1,15 +1,15 @@
 package org.ranjangeorge.mystash.service.txn;
 
-import org.ranjangeorge.mystash.persistence.MyStashDB;
+import org.ranjangeorge.mystash.persistence.IMyStashDAO;
 import org.ranjangeorge.mystash.service.data.TransactionInfo;
 
 import java.util.List;
 
 public class RecentTransactionService {
 
-    private MyStashDB myStashDB;
+    private IMyStashDAO myStashDB;
 
-    public RecentTransactionService(MyStashDB myStashDB) {
+    public RecentTransactionService(IMyStashDAO myStashDB) {
         this.myStashDB = myStashDB;
     }
 

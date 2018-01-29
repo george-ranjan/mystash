@@ -1,12 +1,12 @@
 package org.ranjangeorge.mystash.service;
 
-import org.ranjangeorge.mystash.persistence.MyStashDB;
+import org.ranjangeorge.mystash.persistence.MyStashDAO;
 
 public class MyStashServiceMapper {
 
-    private MyStashDB myStashDB;
+    private MyStashDAO myStashDB;
 
-    public MyStashServiceMapper(MyStashDB myStashDB) {
+    public MyStashServiceMapper(MyStashDAO myStashDB) {
 
         this.myStashDB = myStashDB;
     }

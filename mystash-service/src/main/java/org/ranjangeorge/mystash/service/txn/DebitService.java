@@ -1,31 +1,38 @@
 package org.ranjangeorge.mystash.service.txn;
 
-import org.ranjangeorge.mystash.persistence.MyStashDB;
+import com.sun.istack.internal.NotNull;
+import org.ranjangeorge.mystash.persistence.IMyStashDAO;
+import org.ranjangeorge.mystash.service.data.CreditInfo;
 import org.ranjangeorge.mystash.service.data.DebitInfo;
 
 import java.sql.SQLException;
 
 public class DebitService {
 
-    private MyStashDB myStashDB;
+    private IMyStashDAO myStashDAO;
 
-    public DebitService(MyStashDB myStashDB) {
-        this.myStashDB = myStashDB;
+    public DebitService(
+            @NotNull final IMyStashDAO myStashDAO) {
+        this.myStashDAO = myStashDAO;
     }
 
-    // Record expense
-    public void debit(DebitInfo theDebit) throws SQLException {
+    // Record an income
+    public void debit(
+            @NotNull final String stashId,
+            @NotNull final DebitInfo debit)
+            throws SQLException {
 
-        // Get Balance
-        double balance = myStashDB.fetchBalance();
+        // Get Stash
+        Stash stash = myStashDAO.fetch(
+                Stash.class, stashId);
 
-        // Reduce the balance by the amount
-        balance = BalanceModifier.debit(balance, theDebit.getAmount());
+        // Increase the balance by the amount
+        stash.debit(debit.getAmount());
 
         // Update Balance
-        myStashDB.saveBalance(balance);
+        myStashDAO.save(Stash.class, stash);
 
         // Save Transaction
-        myStashDB.saveDebit(theDebit); // ADDED THIS LINE
+        myStashDAO.save(CreditInfo.class, debit);
     }
 }

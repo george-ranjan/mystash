@@ -1,11 +1,12 @@
 package org.ranjangeorge.mystash.persistence;
 
+import com.sun.istack.internal.NotNull;
 import org.ranjangeorge.mystash.service.data.CreditInfo;
 import org.ranjangeorge.mystash.service.data.DebitInfo;
 
 import java.sql.*;
 
-public class MyStashDB {
+public class MyStashDAO implements IMyStashDAO {
 
     private String dbConnectionUrl;
 
@@ -13,7 +14,7 @@ public class MyStashDB {
 
     private String dbPassword;
 
-    public MyStashDB(
+    public MyStashDAO(
             String theDBConnectionUrl,
             String theDBUser,
             String theDBPassword)
@@ -28,7 +29,30 @@ public class MyStashDB {
         Class.forName("org.postgresql.Driver");
     }
 
-    public double fetchBalance() throws SQLException {
+
+    @Override
+    public <E> void save(Class<E> entityType, Object entity) {
+
+    }
+
+    @Override
+    public <E> void update(Class<E> entityType, Object entity) {
+
+    }
+
+    @Override
+    public <E, EID> E fetch(Class<E> entityType, EID idOfObjectToFetch) {
+        return null;
+    }
+
+    @Override
+    public <E, EID> void delete(Class<E> entityType, EID idOfObjectToDelete) {
+
+    }
+
+    public double fetchBalance(
+            @NotNull final String stashId)
+            throws SQLException {
 
         // Get Balance
         double balance;
@@ -54,7 +78,10 @@ public class MyStashDB {
         return balance;
     }
 
-    public void saveBalance(double balance) throws SQLException {
+    public void saveBalance(
+            @NotNull final String stashId,
+            final double balance)
+            throws SQLException {
 
         // Update Balance
         try (Connection conn = DriverManager.getConnection(
@@ -82,7 +109,9 @@ public class MyStashDB {
         }
     }
 
-    public void saveCredit(CreditInfo theCredit)
+    public void saveCredit(
+            @NotNull final String stashId,
+            @NotNull final CreditInfo theCredit)
             throws SQLException {
 
         // Update Balance
@@ -121,7 +150,9 @@ public class MyStashDB {
         }
     }
 
-    public void saveDebit(DebitInfo theDebit)
+    public void saveDebit(
+            @NotNull final String stashId,
+            @NotNull final DebitInfo theDebit)
             throws SQLException {
 
         // Update Balance
@@ -159,4 +190,5 @@ public class MyStashDB {
             }
         }
     }
+
 }
