@@ -5,8 +5,6 @@ import org.ranjangeorge.mystash.persistence.IMyStashDAO;
 import org.ranjangeorge.mystash.service.data.CreditInfo;
 import org.ranjangeorge.mystash.service.data.DebitInfo;
 
-import java.sql.SQLException;
-
 public class DebitService {
 
     private IMyStashDAO myStashDAO;
@@ -19,8 +17,7 @@ public class DebitService {
     // Record an income
     public void debit(
             @NotNull final String stashId,
-            @NotNull final DebitInfo debit)
-            throws SQLException {
+            @NotNull final DebitInfo debit) {
 
         // Get Stash
         Stash stash = myStashDAO.fetch(
@@ -30,9 +27,9 @@ public class DebitService {
         stash.debit(debit.getAmount());
 
         // Update Balance
-        myStashDAO.save(Stash.class, stash);
+        myStashDAO.insert(Stash.class, stash);
 
         // Save Transaction
-        myStashDAO.save(CreditInfo.class, debit);
+        myStashDAO.insert(CreditInfo.class, debit);
     }
 }

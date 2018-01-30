@@ -5,7 +5,7 @@ import com.sun.istack.internal.NotNull;
 public class MyStashDAO implements IMyStashDAO {
 
     @Override
-    public <E> void save(
+    public <E> void insert(
             @NotNull final Class<E> entityType,
             @NotNull final Object entity) {
 

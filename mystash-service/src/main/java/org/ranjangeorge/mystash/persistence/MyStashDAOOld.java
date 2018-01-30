@@ -31,7 +31,7 @@ public class MyStashDAOOld implements IMyStashDAO {
 
 
     @Override
-    public <E> void save(Class<E> entityType, Object entity) {
+    public <E> void insert(Class<E> entityType, Object entity) {
 
     }
 

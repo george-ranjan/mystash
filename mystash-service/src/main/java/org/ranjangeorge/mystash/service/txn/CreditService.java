@@ -4,8 +4,6 @@ import com.sun.istack.internal.NotNull;
 import org.ranjangeorge.mystash.persistence.IMyStashDAO;
 import org.ranjangeorge.mystash.service.data.CreditInfo;
 
-import java.sql.SQLException;
-
 public class CreditService {
 
     private IMyStashDAO myStashDAO;
@@ -18,8 +16,7 @@ public class CreditService {
     // Record an income
     public void credit(
             @NotNull final String stashId,
-            @NotNull final CreditInfo credit)
-            throws SQLException {
+            @NotNull final CreditInfo credit) {
 
         // Get Stash
         Stash stash = myStashDAO.fetch(
@@ -29,9 +26,9 @@ public class CreditService {
         stash.credit(credit.getAmount());
 
         // Update Balance
-        myStashDAO.save(Stash.class, stash);
+        myStashDAO.insert(Stash.class, stash);
 
         // Save Transaction
-        myStashDAO.save(CreditInfo.class, credit);
+        myStashDAO.insert(CreditInfo.class, credit);
     }
 }
