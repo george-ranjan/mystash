@@ -1,14 +1,14 @@
 package org.ranjangeorge.mystash.service.user;
 
 import com.sun.istack.internal.NotNull;
-import org.ranjangeorge.mystash.persistence.IMyStashDAO;
+import org.ranjangeorge.mystash.persistence.dao.IStashDAO;
 
 public class CreateUserService {
 
-    private IMyStashDAO myStashDAO;
+    private IStashDAO myStashDAO;
 
     public CreateUserService(
-            @NotNull final IMyStashDAO myStashDAO) {
+            @NotNull final IStashDAO myStashDAO) {
         this.myStashDAO = myStashDAO;
     }
 }

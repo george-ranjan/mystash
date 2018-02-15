@@ -1,14 +1,14 @@
 package org.ranjangeorge.mystash.service.txn;
 
 import com.sun.istack.internal.NotNull;
-import org.ranjangeorge.mystash.persistence.IMyStashDAO;
+import org.ranjangeorge.mystash.persistence.dao.IStashDAO;
 
 public class TransferService {
 
-    private IMyStashDAO myStashDAO;
+    private IStashDAO myStashDAO;
 
     public TransferService(
-            @NotNull final IMyStashDAO myStashDAO) {
+            @NotNull final IStashDAO myStashDAO) {
         this.myStashDAO = myStashDAO;
     }
 }

@@ -1,35 +1,40 @@
 package org.ranjangeorge.mystash.service.txn;
 
 import com.sun.istack.internal.NotNull;
-import org.ranjangeorge.mystash.persistence.IMyStashDAO;
-import org.ranjangeorge.mystash.service.data.CreditInfo;
-import org.ranjangeorge.mystash.service.data.DebitInfo;
+import org.ranjangeorge.mystash.persistence.dao.ILedgerDAO;
+import org.ranjangeorge.mystash.persistence.dao.IStashDAO;
+import org.ranjangeorge.mystash.service.data.LedgerEntry;
+
+import java.sql.SQLException;
 
 public class DebitService {
 
-    private IMyStashDAO myStashDAO;
+    private IStashDAO myStashDAO;
+
+    private ILedgerDAO ledgerDAO;
 
     public DebitService(
-            @NotNull final IMyStashDAO myStashDAO) {
+            @NotNull final IStashDAO myStashDAO,
+            @NotNull final ILedgerDAO ledgerDAO) {
         this.myStashDAO = myStashDAO;
+        this.ledgerDAO = ledgerDAO;
     }
 
     // Record an income
-    public void debit(
+    public void credit(
             @NotNull final String stashId,
-            @NotNull final DebitInfo debit) {
+            @NotNull final LedgerEntry credit) throws SQLException {
 
-        // Get Stash
-        Stash stash = myStashDAO.fetch(
-                Stash.class, stashId);
+        // Get current balance
+        double balance = myStashDAO.fetchBalance(stashId);
 
         // Increase the balance by the amount
-        stash.debit(debit.getAmount());
+        balance = BalanceModifier.debit(balance, credit.getAmount());
 
         // Update Balance
-        myStashDAO.insert(Stash.class, stash);
+        myStashDAO.saveBalance(stashId, balance);
 
         // Save Transaction
-        myStashDAO.insert(CreditInfo.class, debit);
+        ledgerDAO.record(credit);
     }
 }

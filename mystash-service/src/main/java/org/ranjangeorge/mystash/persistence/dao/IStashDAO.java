@@ -2,16 +2,16 @@ package org.ranjangeorge.mystash.persistence.dao;
 
 import com.sun.istack.internal.NotNull;
 
+import java.sql.SQLException;
+
 public interface IStashDAO {
 
-    void createStash(
-            @NotNull final String name,
-            @NotNull final String description);
-
     double fetchBalance(
-            @NotNull final String stashId);
+            @NotNull String stashId)
+            throws SQLException;
 
     void saveBalance(
-            @NotNull final String stashId,
-            final double balance);
+            @NotNull String stashId,
+            final double balance)
+            throws SQLException;
 }
