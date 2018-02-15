@@ -4,7 +4,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.Date;
 
-public class TransactionInfo {
+public class LedgerEntry {
 
     public enum CreditOrDebit {
         CREDIT, DEBIT
@@ -18,7 +18,7 @@ public class TransactionInfo {
 
     private Date date;
 
-    public TransactionInfo(
+    public LedgerEntry(
             @NotNull final CreditOrDebit creditOrDebit,
             final double amount,
             @NotNull final String description,

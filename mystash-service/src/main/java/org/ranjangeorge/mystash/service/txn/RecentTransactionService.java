@@ -1,7 +1,7 @@
 package org.ranjangeorge.mystash.service.txn;
 
 import org.ranjangeorge.mystash.persistence.IMyStashDAO;
-import org.ranjangeorge.mystash.service.data.TransactionInfo;
+import org.ranjangeorge.mystash.service.data.LedgerEntry;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class RecentTransactionService {
         this.myStashDB = myStashDB;
     }
 
-    public List<TransactionInfo> getRecentTransactions(int count) {
+    public List<LedgerEntry> getRecentTransactions(int count) {
         return null;
     }
 }
