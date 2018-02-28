@@ -21,9 +21,9 @@ public class StashJDBCDAO implements IStashDAO {
             @NotNull final String stashId)
             throws SQLException {
 
-        String fetchBalanceSql = "select balance from mystash";
+        String fetchBalanceSql = "select balance from mystash where id = ?";
 
-        try (ResultSet resultSet = sqlExecutor.executeQuery(fetchBalanceSql)) {
+        try (ResultSet resultSet = sqlExecutor.executeQuery(fetchBalanceSql, stashId)) {
             return resultSet.getDouble("balance");
         }
     }
