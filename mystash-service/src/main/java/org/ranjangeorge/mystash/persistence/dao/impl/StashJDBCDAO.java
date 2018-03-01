@@ -16,16 +16,25 @@ public class StashJDBCDAO implements IStashDAO {
         this.sqlExecutor = sqlExecutor;
     }
 
+    private static class BalanceInterpreter implements IResultSetInterpreter<Double> {
+
+        @Override
+        public Double interpret(ResultSet resultSet) throws SQLException {
+
+            resultSet.next();
+            return resultSet.getDouble("balance");
+        }
+    }
+
     @Override
     public double fetchBalance(
             @NotNull final String stashId)
             throws SQLException {
 
-        String fetchBalanceSql = "select balance from mystash where id = ?";
-
-        try (ResultSet resultSet = sqlExecutor.executeQuery(fetchBalanceSql, stashId)) {
-            return resultSet.getDouble("balance");
-        }
+        return sqlExecutor.executeQuery(
+                "select balance from mystash where id = ?",
+                new BalanceInterpreter(),
+                stashId);
     }
 
     @Override

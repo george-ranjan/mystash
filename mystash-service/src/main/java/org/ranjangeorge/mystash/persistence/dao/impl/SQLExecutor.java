@@ -44,23 +44,30 @@ public class SQLExecutor {
         }
     }
 
-    public ResultSet executeQuery(String querySql, Object... parameters)
+    public <T> T executeQuery(
+            String querySql,
+            IResultSetInterpreter<T> resultSetInterpreter,
+            Object... parameters)
             throws SQLException {
 
-        try (Connection conn = getConnection()) {
+        try (Connection connection = getConnection()) {
 
-            conn.setAutoCommit(false);
+            connection.setAutoCommit(false);
 
             try {
 
-                ResultSet resultSet = executeQuery(querySql, conn, parameters);
-                conn.commit();
+                T result = executeQuery(querySql,
+                        connection,
+                        parameters,
+                        resultSetInterpreter);
 
-                return resultSet;
+                connection.commit();
+
+                return result;
 
             } catch (SQLException e) {
 
-                conn.rollback();
+                connection.rollback();
                 throw e;
             }
         }
@@ -93,10 +100,11 @@ public class SQLExecutor {
         }
     }
 
-    private ResultSet executeQuery(
+    private <T> T executeQuery(
             String querySql,
             Connection conn,
-            Object[] parameters)
+            Object[] parameters,
+            IResultSetInterpreter<T> resultSetInterpreter)
             throws SQLException {
 
         try (PreparedStatement stmt = conn.prepareStatement(querySql)) {
@@ -105,7 +113,9 @@ public class SQLExecutor {
                 stmt.setObject(index, parameters[index]);
             }
 
-            return stmt.executeQuery();
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                return resultSetInterpreter.interpret(resultSet);
+            }
         }
     }
 }
