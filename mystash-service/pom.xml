@@ -14,8 +14,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ranjangeorge.mystash</groupId>
-            <artifactId>mystash-service-api</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.0.4.Final</version>
         </dependency>
     </dependencies>
 
