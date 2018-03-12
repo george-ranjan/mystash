@@ -2,11 +2,10 @@ package org.ranjangeorge.mystash.service.impl;
 
 import com.sun.istack.internal.NotNull;
 import org.hibernate.SessionFactory;
-import org.ranjangeorge.mystash.service.api.ICreditService;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
-public class CreditService implements ICreditService {
+public class CreditService {
 
     private SessionFactory sessionFactory;
 
