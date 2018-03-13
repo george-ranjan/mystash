@@ -6,10 +6,6 @@ import java.util.Date;
 
 public class LedgerEntry {
 
-    public enum CreditOrDebit {
-        CREDIT, DEBIT
-    }
-
     private CreditOrDebit creditOrDebit;
 
     private double amount;

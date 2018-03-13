@@ -1,20 +1,27 @@
 package org.ranjangeorge.mystash.service.api.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Stash {
 
     private double balance = 0d;
+
+    private List<LedgerEntry> ledger = new ArrayList<>();
 
     public double getBalance() {
         return balance;
     }
 
-    public void credit(double theAmount) {
+    public void recordEntry(LedgerEntry entry) {
 
-        balance = balance + theAmount;
+        updateBalance(entry);
+        ledger.add(entry);
     }
 
-    public void debit(double theAmount) {
+    private void updateBalance(LedgerEntry entry) {
 
-        balance = balance - theAmount;
+        balance = entry.getCreditOrDebit().applyTo(
+                balance, entry.getAmount());
     }
 }
