@@ -1,6 +1,6 @@
 package org.ranjangeorge.mystash.service.api;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 
 public interface ILedgerService {

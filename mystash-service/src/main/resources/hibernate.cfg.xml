@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.PostgreSQL82Dialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            org.postgresql.Driver
+        </property>
+
+        <!--property name="hibernate.connection.datasource"> </property-->
+
+        <property name="hibernate.connection.url">
+            jdbc:postgresql://localhost:5432/${db.name}
+        </property>
+        <property name="hibernate.connection.username">
+            ${db.username}
+        </property>
+        <property name="hibernate.connection.password">
+            ${db.password}
+        </property>
+
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.transaction.auto_close_session">true</property>
+        <property name="hibernate.transaction.coordinator_class">jdbc</property>
+        <property name="show_sql">true</property>
+
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+
+        <mapping class="org.ranjangeorge.mystash.service.api.data.Stash"/>
+        <mapping class="org.ranjangeorge.mystash.service.api.data.LedgerEntry"/>
+
+    </session-factory>
+
+</hibernate-configuration>

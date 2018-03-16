@@ -1,10 +1,20 @@
 package org.ranjangeorge.mystash.service.api.data;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "ledgerentry")
 public class LedgerEntry {
+
+    @ManyToOne
+    @JoinColumn(name = "stashid")
+    private Stash stash;
+
+    @Id
+    private String id;
 
     private CreditOrDebit creditOrDebit;
 

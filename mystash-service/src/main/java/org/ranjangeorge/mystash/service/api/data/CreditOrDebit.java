@@ -1,6 +1,6 @@
 package org.ranjangeorge.mystash.service.api.data;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 public enum CreditOrDebit {
 

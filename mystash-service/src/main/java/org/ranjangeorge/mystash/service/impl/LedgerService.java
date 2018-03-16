@@ -1,9 +1,9 @@
 package org.ranjangeorge.mystash.service.impl;
 
-import com.sun.istack.internal.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
@@ -53,6 +53,7 @@ public class LedgerService {
             // Oops! Some problem, rollback
             transaction.rollback();
 
+            throw e;
         }
     }
 }
