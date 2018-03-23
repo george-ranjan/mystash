@@ -1,7 +1,6 @@
 package org.ranjangeorge.mystash.service.api;
 
 import org.jetbrains.annotations.NotNull;
-import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
@@ -16,7 +15,7 @@ public interface ILedgerService {
     @UsecaseName(value = Usecase.DEBIT)
     void debit(
             @NotNull final String stashId,
-            @NotNull final LedgerEntry entry);
+            @NotNull final LedgerEntryDTO entry);
 
     @UsecaseName(value = Usecase.FETCH_BALANCE)
     double fetchBalance(

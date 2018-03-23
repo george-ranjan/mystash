@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ranjangeorge.mystash.service.api.ILedgerService;
 import org.ranjangeorge.mystash.service.api.IStashAdminService;
-import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
@@ -41,7 +40,6 @@ public class LedgerServiceTest {
         ledgerService.credit(
                 stashId,
                 new LedgerEntryDTO(
-                        CreditOrDebit.CREDIT,
                         100d,
                         "Random Credit",
                         new Date()));
@@ -54,10 +52,9 @@ public class LedgerServiceTest {
     @Test
     public void testSimpleDebitIsSuccessful() {
 
-        ledgerService.credit(
+        ledgerService.debit(
                 stashId,
                 new LedgerEntryDTO(
-                        CreditOrDebit.DEBIT,
                         100d,
                         "Random Credit",
                         new Date()));
