@@ -1,32 +1,35 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.stashadmin;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
-public class FetchBalance {
+import java.util.List;
+
+public class DeleteAllStashes {
 
     private SessionFactory sessionFactory;
 
-    FetchBalance(SessionFactory sessionFactory) {
+    public DeleteAllStashes(SessionFactory sessionFactory) {
 
         this.sessionFactory = sessionFactory;
     }
 
-    public double fetchBalance(String stashId) {
+    public void deleteAllStashes() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
         try {
 
-            double balance = session.load(Stash.class, stashId).getBalance();
+            //noinspection unchecked
+            ((List<Stash>) session.createCriteria(Stash.class)
+                    .list())
+                    .forEach(session::delete);
 
             // Commit
             transaction.commit();
-
-            return balance;
 
         } catch (RuntimeException e) {
 
@@ -35,5 +38,6 @@ public class FetchBalance {
 
             throw e;
         }
+
     }
 }

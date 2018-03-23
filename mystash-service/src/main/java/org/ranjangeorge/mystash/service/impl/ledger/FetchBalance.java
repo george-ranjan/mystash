@@ -1,33 +1,32 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.ledger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
-class CreateNewStash {
+public class FetchBalance {
 
     private SessionFactory sessionFactory;
 
-    CreateNewStash(SessionFactory sessionFactory) {
+    public FetchBalance(SessionFactory sessionFactory) {
 
         this.sessionFactory = sessionFactory;
     }
 
-    public String createNewStash(@NotNull final String stashName) {
+    public double fetchBalance(String stashId) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
         try {
 
-            String stashId = (String) session.save(new Stash(stashName));
+            double balance = session.load(Stash.class, stashId).getBalance();
 
             // Commit
             transaction.commit();
 
-            return stashId;
+            return balance;
 
         } catch (RuntimeException e) {
 
@@ -36,6 +35,5 @@ class CreateNewStash {
 
             throw e;
         }
-
     }
 }

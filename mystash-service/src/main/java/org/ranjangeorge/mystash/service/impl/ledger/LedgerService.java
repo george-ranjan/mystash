@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.ledger;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ public class LedgerService {
 
     private SessionFactory sessionFactory;
 
-    LedgerService(
+    public LedgerService(
             @NotNull final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

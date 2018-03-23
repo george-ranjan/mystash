@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.stashadmin;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-class ListAllStashes {
+public class ListAllStashes {
 
     private SessionFactory sessionFactory;
 
-    ListAllStashes(SessionFactory sessionFactory) {
+    public ListAllStashes(SessionFactory sessionFactory) {
 
         this.sessionFactory = sessionFactory;
     }

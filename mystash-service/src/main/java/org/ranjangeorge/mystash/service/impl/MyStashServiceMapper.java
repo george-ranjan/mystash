@@ -4,6 +4,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.ranjangeorge.mystash.service.api.Usecase;
+import org.ranjangeorge.mystash.service.impl.ledger.FetchBalance;
+import org.ranjangeorge.mystash.service.impl.ledger.LedgerService;
+import org.ranjangeorge.mystash.service.impl.stashadmin.CreateNewStash;
+import org.ranjangeorge.mystash.service.impl.stashadmin.DeleteAllStashes;
+import org.ranjangeorge.mystash.service.impl.stashadmin.ListAllStashes;
 
 import java.util.HashMap;
 import java.util.Map;
