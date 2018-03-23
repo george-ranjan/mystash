@@ -6,7 +6,14 @@ public class ServiceLookup {
 
     public static <SVCINTF> SVCINTF getService(Class<SVCINTF> serviceInterface) {
 
-        return (SVCINTF) Proxy.newProxyInstance(ServiceLookup.class.getClassLoader(),
-                new Class[]{serviceInterface}, new MyStashService(new MyStashServiceMapper()));
+        MyStashServiceHandler serviceHandler = new MyStashServiceHandler(MyStashServiceMapper.INSTANCE);
+
+        Object service = Proxy.newProxyInstance(
+                ServiceLookup.class.getClassLoader(),
+                new Class[]{serviceInterface},
+                serviceHandler);
+
+        //noinspection unchecked
+        return (SVCINTF) service;
     }
 }

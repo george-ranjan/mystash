@@ -16,6 +16,7 @@
         <db.name>mystash</db.name>
         <db.username>mystash</db.username>
         <db.password>mystash</db.password>
+        <db.hbm2ddl>update</db.hbm2ddl>
     </properties>
 
     <dependencies>

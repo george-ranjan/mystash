@@ -2,20 +2,9 @@ package org.ranjangeorge.mystash.service.api.data;
 
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
-@Entity
-@Table(name = "ledgerentry")
-public class LedgerEntry {
-
-    @ManyToOne
-    @JoinColumn(name = "stashid")
-    private Stash stash;
-
-    @Id
-    private String id;
+public class LedgerEntryDTO {
 
     private CreditOrDebit creditOrDebit;
 
@@ -25,18 +14,12 @@ public class LedgerEntry {
 
     private Date date;
 
-    LedgerEntry() {
-    }
-
-    public LedgerEntry(
-            Stash stash, @NotNull final CreditOrDebit creditOrDebit,
+    public LedgerEntryDTO(
+            @NotNull final CreditOrDebit creditOrDebit,
             final double amount,
             @NotNull final String description,
             @NotNull final Date date) {
 
-        id = UUID.randomUUID().toString();
-        //
-        this.stash = stash;
         this.creditOrDebit = creditOrDebit;
         this.amount = amount;
         this.description = description;

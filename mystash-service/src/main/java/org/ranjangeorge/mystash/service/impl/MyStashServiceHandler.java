@@ -7,11 +7,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class MyStashService implements InvocationHandler {
+public class MyStashServiceHandler implements InvocationHandler {
 
     private MyStashServiceMapper myStashServiceMapper;
 
-    MyStashService(MyStashServiceMapper myStashServiceMapper) {
+    MyStashServiceHandler(MyStashServiceMapper myStashServiceMapper) {
 
         this.myStashServiceMapper = myStashServiceMapper;
     }
@@ -20,9 +20,12 @@ public class MyStashService implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        // Interpret UsecaseName Name from Annotation
-        Usecase usecase = method.getAnnotationsByType(
-                UsecaseName.class)[0].value();
+        UsecaseName[] usecaseNameAnnotations = method.getAnnotationsByType(UsecaseName.class);
+        if (usecaseNameAnnotations.length == 0) {
+            throw new IllegalArgumentException("Please specify @UsecaseName annotation on the service interface");
+        }
+
+        Usecase usecase = usecaseNameAnnotations[0].value();
 
         // Get Service implementor for UsecaseName
         Object service = myStashServiceMapper.getService(usecase);
