@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.api;
+package org.ranjangeorge.mystash.service.api.support;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

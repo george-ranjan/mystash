@@ -4,9 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
-import org.ranjangeorge.mystash.service.api.Usecase;
-import org.ranjangeorge.mystash.service.api.UsecaseNames;
 import org.ranjangeorge.mystash.service.api.data.Stash;
+import org.ranjangeorge.mystash.service.api.support.Usecase;
+import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
 @UsecaseNames(Usecase.CREATE_NEW_STASH)
 public class CreateNewStash {

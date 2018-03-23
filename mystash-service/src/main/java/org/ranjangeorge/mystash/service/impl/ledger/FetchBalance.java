@@ -3,9 +3,9 @@ package org.ranjangeorge.mystash.service.impl.ledger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.ranjangeorge.mystash.service.api.Usecase;
-import org.ranjangeorge.mystash.service.api.UsecaseNames;
 import org.ranjangeorge.mystash.service.api.data.Stash;
+import org.ranjangeorge.mystash.service.api.support.Usecase;
+import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
 @UsecaseNames(Usecase.FETCH_BALANCE)
 public class FetchBalance {

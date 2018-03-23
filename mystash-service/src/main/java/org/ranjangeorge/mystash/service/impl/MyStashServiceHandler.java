@@ -1,7 +1,7 @@
 package org.ranjangeorge.mystash.service.impl;
 
-import org.ranjangeorge.mystash.service.api.Usecase;
-import org.ranjangeorge.mystash.service.api.UsecaseName;
+import org.ranjangeorge.mystash.service.api.support.Usecase;
+import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

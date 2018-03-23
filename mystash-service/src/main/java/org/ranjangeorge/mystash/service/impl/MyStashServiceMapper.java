@@ -4,8 +4,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.ranjangeorge.mystash.service.api.Usecase;
-import org.ranjangeorge.mystash.service.api.UsecaseNames;
+import org.ranjangeorge.mystash.service.api.support.Usecase;
+import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
