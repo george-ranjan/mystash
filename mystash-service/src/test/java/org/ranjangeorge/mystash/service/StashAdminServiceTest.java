@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ranjangeorge.mystash.service.api.IStashAdminService;
-import org.ranjangeorge.mystash.service.impl.ServiceLookup;
+import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 import java.util.Set;
 

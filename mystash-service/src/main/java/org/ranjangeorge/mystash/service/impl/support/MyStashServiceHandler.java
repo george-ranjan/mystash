@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.support;
 
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;

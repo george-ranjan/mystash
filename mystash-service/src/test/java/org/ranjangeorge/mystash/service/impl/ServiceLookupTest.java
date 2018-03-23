@@ -3,6 +3,7 @@ package org.ranjangeorge.mystash.service.impl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 public class ServiceLookupTest {
 

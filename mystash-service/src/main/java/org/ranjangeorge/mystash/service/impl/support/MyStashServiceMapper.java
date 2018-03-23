@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.support;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.impl;
+package org.ranjangeorge.mystash.service.impl.support;
 
 import java.lang.reflect.Proxy;
 

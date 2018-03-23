@@ -8,7 +8,7 @@ import org.ranjangeorge.mystash.service.api.ILedgerService;
 import org.ranjangeorge.mystash.service.api.IStashAdminService;
 import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
-import org.ranjangeorge.mystash.service.impl.ServiceLookup;
+import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 import java.util.Date;
 
