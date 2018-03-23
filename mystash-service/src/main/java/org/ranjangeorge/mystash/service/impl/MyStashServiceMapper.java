@@ -5,11 +5,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.ranjangeorge.mystash.service.api.Usecase;
-import org.ranjangeorge.mystash.service.impl.ledger.FetchBalance;
-import org.ranjangeorge.mystash.service.impl.ledger.LedgerService;
-import org.ranjangeorge.mystash.service.impl.stashadmin.CreateNewStash;
-import org.ranjangeorge.mystash.service.impl.stashadmin.DeleteAllStashes;
-import org.ranjangeorge.mystash.service.impl.stashadmin.ListAllStashes;
+import org.ranjangeorge.mystash.service.api.UsecaseNames;
+import org.reflections.Reflections;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,20 +15,43 @@ public enum MyStashServiceMapper {
 
     INSTANCE;
 
+    private SessionFactory sessionFactory = buildSessionFactory();
+
     private Map<Usecase, Object> serviceMap = new HashMap<>();
 
     MyStashServiceMapper() {
 
-        SessionFactory sessionFactory = buildSessionFactory();
+        buildServiceMap();
+    }
 
-        serviceMap.put(Usecase.CREATE_NEW_STASH, new CreateNewStash(sessionFactory));
-        serviceMap.put(Usecase.LIST_STASHES, new ListAllStashes(sessionFactory));
-        serviceMap.put(Usecase.DELETE_ALL_STASHES, new DeleteAllStashes(sessionFactory));
-        //
-        LedgerService ledgerService = new LedgerService(sessionFactory);
-        serviceMap.put(Usecase.CREDIT, ledgerService);
-        serviceMap.put(Usecase.DEBIT, ledgerService);
-        serviceMap.put(Usecase.FETCH_BALANCE, new FetchBalance(sessionFactory));
+    private void buildServiceMap() {
+
+        new Reflections(getClass().getPackage().getName())
+                .getTypesAnnotatedWith(UsecaseNames.class, true)
+                .stream()
+                .map(this::createServiceInstance)
+                .forEach(svcInstance -> {
+
+                    UsecaseNames usecaseNames = svcInstance.getClass().getAnnotationsByType(UsecaseNames.class)[0];
+                    for (Usecase usecase : usecaseNames.value()) {
+                        serviceMap.put(usecase, svcInstance);
+                    }
+                });
+    }
+
+    private Object createServiceInstance(Class<?> serviceImplementationClass) {
+
+        try {
+
+            return serviceImplementationClass.getConstructor(SessionFactory.class)
+                    .newInstance(sessionFactory);
+
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalArgumentException(
+                    "Unable to instantiate the service implementation class(" + serviceImplementationClass + "). "
+                            + "Please confirm it has public constructor with single org.hibernate.SessionFactory parameter",
+                    e);
+        }
     }
 
     private SessionFactory buildSessionFactory() {

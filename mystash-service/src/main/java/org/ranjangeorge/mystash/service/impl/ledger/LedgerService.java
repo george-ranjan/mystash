@@ -4,10 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
+import org.ranjangeorge.mystash.service.api.Usecase;
+import org.ranjangeorge.mystash.service.api.UsecaseNames;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
+@UsecaseNames({Usecase.CREDIT, Usecase.DEBIT})
 public class LedgerService {
 
     private SessionFactory sessionFactory;

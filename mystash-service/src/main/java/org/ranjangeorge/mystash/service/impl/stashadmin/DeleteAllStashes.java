@@ -3,10 +3,13 @@ package org.ranjangeorge.mystash.service.impl.stashadmin;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.ranjangeorge.mystash.service.api.Usecase;
+import org.ranjangeorge.mystash.service.api.UsecaseNames;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
 import java.util.List;
 
+@UsecaseNames(Usecase.DELETE_ALL_STASHES)
 public class DeleteAllStashes {
 
     private SessionFactory sessionFactory;

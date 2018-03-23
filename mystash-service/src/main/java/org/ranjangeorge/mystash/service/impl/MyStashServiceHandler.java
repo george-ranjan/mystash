@@ -22,7 +22,8 @@ public class MyStashServiceHandler implements InvocationHandler {
 
         UsecaseName[] usecaseNameAnnotations = method.getAnnotationsByType(UsecaseName.class);
         if (usecaseNameAnnotations.length == 0) {
-            throw new IllegalArgumentException("Please specify @UsecaseName annotation on the service interface");
+            throw new IllegalArgumentException("Please specify @UsecaseName annotation on the service interface("
+                    + "Method:" + method.getName() + ")");
         }
 
         Usecase usecase = usecaseNameAnnotations[0].value();
