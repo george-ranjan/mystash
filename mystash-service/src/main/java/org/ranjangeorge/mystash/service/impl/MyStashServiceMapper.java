@@ -2,6 +2,7 @@ package org.ranjangeorge.mystash.service.impl;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.ranjangeorge.mystash.service.api.Usecase;
 import org.ranjangeorge.mystash.service.impl.ledger.FetchBalance;
@@ -17,15 +18,11 @@ public enum MyStashServiceMapper {
 
     INSTANCE;
 
-    // A SessionFactory is set up once for an application!
-    private final SessionFactory sessionFactory =
-            new MetadataSources(new StandardServiceRegistryBuilder().configure().build())
-                    .buildMetadata()
-                    .buildSessionFactory();
-
     private Map<Usecase, Object> serviceMap = new HashMap<>();
 
     MyStashServiceMapper() {
+
+        SessionFactory sessionFactory = buildSessionFactory();
 
         serviceMap.put(Usecase.CREATE_NEW_STASH, new CreateNewStash(sessionFactory));
         serviceMap.put(Usecase.LIST_STASHES, new ListAllStashes(sessionFactory));
@@ -35,6 +32,17 @@ public enum MyStashServiceMapper {
         serviceMap.put(Usecase.CREDIT, ledgerService);
         serviceMap.put(Usecase.DEBIT, ledgerService);
         serviceMap.put(Usecase.FETCH_BALANCE, new FetchBalance(sessionFactory));
+    }
+
+    private SessionFactory buildSessionFactory() {
+
+        StandardServiceRegistry build = new StandardServiceRegistryBuilder()
+                .configure()
+                .build();
+
+        return new MetadataSources(build)
+                .buildMetadata()
+                .buildSessionFactory();
     }
 
     public Object getService(Usecase usecase) {
