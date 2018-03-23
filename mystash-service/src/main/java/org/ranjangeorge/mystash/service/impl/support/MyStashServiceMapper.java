@@ -26,7 +26,7 @@ public enum MyStashServiceMapper {
 
     private void buildServiceMap() {
 
-        new Reflections(getClass().getPackage().getName())
+        new Reflections("org.ranjangeorge.mystash.service.impl")
                 .getTypesAnnotatedWith(UsecaseNames.class, true)
                 .stream()
                 .map(this::createServiceInstance)
