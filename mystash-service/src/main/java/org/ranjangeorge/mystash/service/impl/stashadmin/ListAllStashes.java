@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@UsecaseNames(Usecase.LIST_STASHES)
+@UsecaseNames(Usecase.LIST_ALL_STASHES)
 public class ListAllStashes {
 
     private SessionFactory sessionFactory;
@@ -21,7 +21,7 @@ public class ListAllStashes {
         this.sessionFactory = sessionFactory;
     }
 
-    public Set<String> list() {
+    public Set<String> listAllStashes() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
