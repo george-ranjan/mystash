@@ -32,7 +32,7 @@ public class StashAdminServiceTest {
 
         stashAdminService.createNewStash("my-new-stash");
         //
-        Set<String> stashes = stashAdminService.list();
+        Set<String> stashes = stashAdminService.listAllStashes();
         //
         Assert.assertEquals(1, stashes.size());
     }
