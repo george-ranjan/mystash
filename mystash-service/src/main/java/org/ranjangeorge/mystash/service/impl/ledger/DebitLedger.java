@@ -12,7 +12,7 @@ import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
 @UsecaseNames(Usecase.DEBIT)
-public class DebitLedger extends LedgerTxn {
+public class DebitLedger extends LedgerTxnBase {
 
     private SessionFactory sessionFactory;
 

@@ -6,7 +6,7 @@ import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.api.data.Stash;
 
-abstract class LedgerTxn {
+abstract class LedgerTxnBase {
 
     @NotNull LedgerEntry toLedgerEntry(
             @NotNull final Stash stash,
