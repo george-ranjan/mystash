@@ -11,34 +11,19 @@ import org.ranjangeorge.mystash.service.api.data.Stash;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
-@UsecaseNames({Usecase.CREDIT, Usecase.DEBIT})
-public class LedgerService {
+@UsecaseNames(Usecase.DEBIT)
+public class DebitLedger extends LedgerTxn {
 
     private SessionFactory sessionFactory;
 
-    public LedgerService(
+    public DebitLedger(
             @NotNull final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-    }
-
-    public void credit(
-            @NotNull final String stashId,
-            @NotNull final LedgerEntryDTO credit) {
-
-        recordEntry(stashId, CreditOrDebit.CREDIT, credit);
     }
 
     public void debit(
             @NotNull final String stashId,
             @NotNull final LedgerEntryDTO debit) {
-
-        recordEntry(stashId, CreditOrDebit.DEBIT, debit);
-    }
-
-    private void recordEntry(
-            @NotNull final String stashId,
-            @NotNull final CreditOrDebit creditOrDebit,
-            @NotNull final LedgerEntryDTO ledgerEntryDTO) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -51,8 +36,8 @@ public class LedgerService {
             // Record Entry
             LedgerEntry ledgerEntry = toLedgerEntry(
                     stash,
-                    creditOrDebit,
-                    ledgerEntryDTO);
+                    CreditOrDebit.DEBIT,
+                    debit);
 
             stash.recordEntry(ledgerEntry);
 
@@ -68,17 +53,4 @@ public class LedgerService {
         }
     }
 
-    @NotNull
-    private LedgerEntry toLedgerEntry(
-            @NotNull final Stash stash,
-            @NotNull final CreditOrDebit creditOrDebit,
-            @NotNull final LedgerEntryDTO ledgerEntryDTO) {
-
-        return new LedgerEntry(
-                stash,
-                creditOrDebit,
-                ledgerEntryDTO.getAmount(),
-                ledgerEntryDTO.getDescription(),
-                ledgerEntryDTO.getDate());
-    }
 }
