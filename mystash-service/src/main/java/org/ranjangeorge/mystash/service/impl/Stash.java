@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service.api.data;
+package org.ranjangeorge.mystash.service.impl;
 
 import org.jetbrains.annotations.NotNull;
 

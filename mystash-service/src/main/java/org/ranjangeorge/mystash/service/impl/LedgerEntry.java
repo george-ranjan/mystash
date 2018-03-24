@@ -1,6 +1,7 @@
-package org.ranjangeorge.mystash.service.api.data;
+package org.ranjangeorge.mystash.service.impl;
 
 import org.jetbrains.annotations.NotNull;
+import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 
 import javax.persistence.*;
 import java.util.Date;

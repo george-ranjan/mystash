@@ -3,9 +3,9 @@ package org.ranjangeorge.mystash.service.impl.stashadmin;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.ranjangeorge.mystash.service.api.data.Stash;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
+import org.ranjangeorge.mystash.service.impl.Stash;
 
 import java.util.List;
 

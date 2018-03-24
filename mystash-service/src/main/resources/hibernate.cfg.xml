@@ -36,8 +36,8 @@
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.idle_test_period">3000</property>
 
-        <mapping class="org.ranjangeorge.mystash.service.api.data.Stash"/>
-        <mapping class="org.ranjangeorge.mystash.service.api.data.LedgerEntry"/>
+        <mapping class="org.ranjangeorge.mystash.service.impl.Stash"/>
+        <mapping class="org.ranjangeorge.mystash.service.impl.LedgerEntry"/>
 
     </session-factory>
 
