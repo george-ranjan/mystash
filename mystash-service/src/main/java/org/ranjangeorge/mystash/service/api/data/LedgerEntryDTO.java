@@ -6,11 +6,11 @@ import java.util.Date;
 
 public class LedgerEntryDTO {
 
-    private double amount;
+    private final double amount;
 
-    private String description;
+    private final String description;
 
-    private Date date;
+    private final Date date;
 
     public LedgerEntryDTO(
             final double amount,

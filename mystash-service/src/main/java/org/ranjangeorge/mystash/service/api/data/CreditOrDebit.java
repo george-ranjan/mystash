@@ -1,7 +1,5 @@
 package org.ranjangeorge.mystash.service.api.data;
 
-import org.jetbrains.annotations.NotNull;
-
 public enum CreditOrDebit {
 
     CREDIT {
@@ -18,6 +16,6 @@ public enum CreditOrDebit {
     };
 
     public abstract double applyTo(
-            @NotNull final double balance,
-            @NotNull final double amount);
+            final double balance,
+            final double amount);
 }

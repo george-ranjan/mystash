@@ -1,8 +1,6 @@
 package org.ranjangeorge.mystash.service.impl.ledger;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 import org.ranjangeorge.mystash.service.api.data.LedgerEntry;
@@ -14,7 +12,7 @@ import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 @UsecaseNames({Usecase.CREDIT, Usecase.DEBIT})
 public class LedgerService {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public LedgerService(
             @NotNull final SessionFactory sessionFactory) {
@@ -40,32 +38,18 @@ public class LedgerService {
             @NotNull final CreditOrDebit creditOrDebit,
             @NotNull final LedgerEntryDTO ledgerEntryDTO) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+        // Fetch Stash
+        Stash stash = sessionFactory.getCurrentSession()
+                .load(Stash.class, stashId);
 
-        try {
+        // Record Entry
+        LedgerEntry ledgerEntry = toLedgerEntry(
+                stash,
+                creditOrDebit,
+                ledgerEntryDTO);
 
-            // Fetch Stash
-            Stash stash = session.load(Stash.class, stashId);
+        stash.recordEntry(ledgerEntry);
 
-            // Record Entry
-            LedgerEntry ledgerEntry = toLedgerEntry(
-                    stash,
-                    creditOrDebit,
-                    ledgerEntryDTO);
-
-            stash.recordEntry(ledgerEntry);
-
-            // Commit
-            transaction.commit();
-
-        } catch (RuntimeException e) {
-
-            // Oops! Some problem, rollback
-            transaction.rollback();
-
-            throw e;
-        }
     }
 
     @NotNull

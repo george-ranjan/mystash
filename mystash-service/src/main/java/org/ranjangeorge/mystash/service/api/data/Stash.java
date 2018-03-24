@@ -19,7 +19,7 @@ public class Stash {
     private double balance = 0d;
 
     @OneToMany(mappedBy = "stash", cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private List<LedgerEntry> ledger = new ArrayList<>();
+    private final List<LedgerEntry> ledger = new ArrayList<>();
 
     Stash() {
     }

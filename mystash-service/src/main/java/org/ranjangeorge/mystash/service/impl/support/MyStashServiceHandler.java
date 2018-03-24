@@ -1,5 +1,9 @@
 package org.ranjangeorge.mystash.service.impl.support;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
@@ -9,11 +13,16 @@ import java.lang.reflect.Method;
 
 public class MyStashServiceHandler implements InvocationHandler {
 
-    private MyStashServiceMapper myStashServiceMapper;
+    private final IMyStashServiceMapper myStashServiceMapper;
 
-    MyStashServiceHandler(MyStashServiceMapper myStashServiceMapper) {
+    private final SessionFactory sessionFactory;
+
+    MyStashServiceHandler(
+            @NotNull final IMyStashServiceMapper myStashServiceMapper,
+            @NotNull final SessionFactory sessionFactory) {
 
         this.myStashServiceMapper = myStashServiceMapper;
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -31,8 +40,26 @@ public class MyStashServiceHandler implements InvocationHandler {
         // Get Service implementor for UsecaseName
         Object service = myStashServiceMapper.getService(usecase);
 
-        return service.getClass()
-                .getMethod(method.getName(), method.getParameterTypes())
-                .invoke(service, args);
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+
+            Object result = service.getClass()
+                    .getMethod(method.getName(), method.getParameterTypes())
+                    .invoke(service, args);
+
+            // Commit
+            transaction.commit();
+
+            return result;
+
+        } catch (RuntimeException e) {
+
+            // Oops! Some problem, rollback
+            transaction.rollback();
+
+            throw e;
+        }
     }
 }

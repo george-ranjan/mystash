@@ -8,7 +8,7 @@ import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 public class ServiceLookupTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testLookup_ServiceInterfaceWithoutAnnotation_ShouldThrowIllegalArgumentException() {
