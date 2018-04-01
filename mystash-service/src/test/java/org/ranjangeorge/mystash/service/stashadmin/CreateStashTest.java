@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service;
+package org.ranjangeorge.mystash.service.stashadmin;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -9,7 +9,7 @@ import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 import java.util.Set;
 
-public class StashAdminServiceTest {
+public class CreateStashTest {
 
     private IStashAdminService stashAdminService;
 

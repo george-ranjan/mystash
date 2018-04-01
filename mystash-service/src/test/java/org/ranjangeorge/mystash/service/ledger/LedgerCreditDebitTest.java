@@ -1,4 +1,4 @@
-package org.ranjangeorge.mystash.service;
+package org.ranjangeorge.mystash.service.ledger;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -11,7 +11,7 @@ import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 import java.util.Date;
 
-public class LedgerServiceTest {
+public class LedgerCreditDebitTest {
 
     private IStashAdminService stashAdminService;
 
