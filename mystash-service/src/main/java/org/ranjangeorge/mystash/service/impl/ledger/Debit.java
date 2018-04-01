@@ -6,13 +6,13 @@ import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
-@UsecaseNames(Usecase.CREDIT)
-public class CreditLedger extends LedgerTxnBase {
+@UsecaseNames(Usecase.DEBIT)
+public class Debit extends TxnBase {
 
-    public void credit(
+    public void debit(
             @NotNull final String stashId,
-            @NotNull final LedgerEntryDTO credit) {
+            @NotNull final LedgerEntryDTO debit) {
 
-        recordEntry(stashId, credit, CreditOrDebit.CREDIT);
+        recordEntry(stashId, debit, CreditOrDebit.DEBIT);
     }
 }

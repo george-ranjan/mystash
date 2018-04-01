@@ -9,7 +9,7 @@ import org.ranjangeorge.mystash.service.impl.LedgerEntry;
 import org.ranjangeorge.mystash.service.impl.Stash;
 import org.ranjangeorge.mystash.service.impl.support.db.SessionFactoryHolder;
 
-abstract class LedgerTxnBase {
+abstract class TxnBase {
 
     void recordEntry(
             @NotNull final String stashId,
