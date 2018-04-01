@@ -17,7 +17,14 @@ public interface ILedgerService {
             @NotNull final String stashId,
             @NotNull final LedgerEntryDTO entry);
 
+    @UsecaseName(value = Usecase.TRANSFER)
+    void transfer(
+            @NotNull final String fromStashId,
+            @NotNull final String toStashId,
+            @NotNull final LedgerEntryDTO ledgerEntryDTO);
+
     @UsecaseName(value = Usecase.FETCH_BALANCE)
     double fetchBalance(
             @NotNull final String stashId);
+
 }

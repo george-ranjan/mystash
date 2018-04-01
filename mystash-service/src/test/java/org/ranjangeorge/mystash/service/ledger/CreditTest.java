@@ -11,7 +11,7 @@ import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
 import java.util.Date;
 
-public class LedgerCreditDebitTest {
+public class CreditTest {
 
     private IStashAdminService stashAdminService;
 
@@ -47,20 +47,5 @@ public class LedgerCreditDebitTest {
         double balance = ledgerService.fetchBalance(stashId);
         //
         Assert.assertEquals(100d, balance, 0d);
-    }
-
-    @Test
-    public void testSimpleDebitIsSuccessful() {
-
-        ledgerService.debit(
-                stashId,
-                new LedgerEntryDTO(
-                        100d,
-                        "Random Credit",
-                        new Date()));
-        //
-        double balance = ledgerService.fetchBalance(stashId);
-        //
-        Assert.assertEquals(-100d, balance, 0d);
     }
 }

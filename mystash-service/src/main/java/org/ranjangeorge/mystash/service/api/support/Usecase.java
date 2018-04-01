@@ -8,6 +8,7 @@ public enum Usecase {
 
     CREDIT,
     DEBIT,
+    TRANSFER,
     FETCH_BALANCE,
 
     SEND_EMAIL
