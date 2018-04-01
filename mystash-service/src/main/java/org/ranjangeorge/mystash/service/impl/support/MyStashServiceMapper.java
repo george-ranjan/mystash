@@ -15,8 +15,6 @@ public enum MyStashServiceMapper {
 
     INSTANCE;
 
-    private SessionFactory sessionFactory = buildSessionFactory();
-
     private Map<Usecase, Object> serviceMap = new HashMap<>();
 
     MyStashServiceMapper() {
@@ -43,14 +41,12 @@ public enum MyStashServiceMapper {
 
         try {
 
-            return serviceImplementationClass.getConstructor(SessionFactory.class)
-                    .newInstance(sessionFactory);
+            return serviceImplementationClass.newInstance();
 
         } catch (ReflectiveOperationException e) {
             throw new IllegalArgumentException(
                     "Unable to instantiate the service implementation class(" + serviceImplementationClass + "). "
-                            + "Please confirm it has public constructor with single org.hibernate.SessionFactory parameter",
-                    e);
+                            + "Please confirm it has public no-orags constructor", e);
         }
     }
 

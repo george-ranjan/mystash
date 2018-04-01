@@ -1,11 +1,11 @@
 package org.ranjangeorge.mystash.service.impl.stashadmin;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 import org.ranjangeorge.mystash.service.impl.Stash;
+import org.ranjangeorge.mystash.service.impl.support.db.SessionFactoryHolder;
 
 import java.util.List;
 import java.util.Set;
@@ -14,16 +14,9 @@ import java.util.stream.Collectors;
 @UsecaseNames(Usecase.LIST_ALL_STASHES)
 public class ListAllStashes {
 
-    private SessionFactory sessionFactory;
-
-    public ListAllStashes(SessionFactory sessionFactory) {
-
-        this.sessionFactory = sessionFactory;
-    }
-
     public Set<String> listAllStashes() {
 
-        Session session = sessionFactory.getCurrentSession();
+        Session session = SessionFactoryHolder.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
         try {

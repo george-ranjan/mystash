@@ -1,19 +1,17 @@
-package org.ranjangeorge.mystash.service.support.email;
+package org.ranjangeorge.mystash.service.impl.email;
 
 import org.jetbrains.annotations.NotNull;
+import org.ranjangeorge.mystash.service.api.IEmailService;
+import org.ranjangeorge.mystash.service.api.support.Usecase;
+import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-/**
- * String mailhost = "smtp.gmail.com";
- * int mailport = 465;
- * String smtpuser = "george.ranjan@gmail.com";
- * String smtppassword = XXX;
- */
-public class EmailService {
+@UsecaseNames(Usecase.SEND_EMAIL)
+public class EmailService implements IEmailService {
 
     private String mailhost;
 
@@ -23,18 +21,7 @@ public class EmailService {
 
     private String smtppassword;
 
-    public EmailService(
-            @NotNull final String mailhost,
-            final int mailport,
-            @NotNull final String smtpuser,
-            @NotNull final String smtppassword) {
-
-        this.mailhost = mailhost;
-        this.mailport = mailport;
-        this.smtpuser = smtpuser;
-        this.smtppassword = smtppassword;
-    }
-
+    @Override
     public void sendEmail(
             @NotNull final String from,
             @NotNull final String to,
