@@ -3,8 +3,7 @@ package org.ranjangeorge.mystash.service.api;
 import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
-
-import javax.mail.MessagingException;
+import org.ranjangeorge.mystash.service.impl.email.EmailService;
 
 public interface IEmailService {
 
@@ -13,6 +12,19 @@ public interface IEmailService {
             @NotNull String from,
             @NotNull String to,
             @NotNull String subject,
-            @NotNull String text)
-            throws MessagingException;
+            @NotNull String text);
+
+    default void sendEmail(
+            @NotNull String to,
+            @NotNull String subject,
+            @NotNull String text) {
+
+        sendEmail(
+                "george.ranjan@gmail.com",
+                to, subject, text);
+    }
+
+    static IEmailService getEmailService() {
+        return new EmailService();
+    }
 }

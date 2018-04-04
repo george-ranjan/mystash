@@ -4,12 +4,16 @@ import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 public interface IStashAdminService {
 
     @UsecaseName(Usecase.CREATE_NEW_STASH)
-    String createNewStash(@NotNull String stashName);
+    String createNewStash(
+            @NotNull String stashName,
+            @NotNull String ownerEmail,
+            BigDecimal initialCredit);
 
     @UsecaseName(Usecase.LIST_ALL_STASHES)
     Set<String> listAllStashes();

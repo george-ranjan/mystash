@@ -6,12 +6,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ranjangeorge.mystash.service.api.ILedgerService;
 import org.ranjangeorge.mystash.service.api.IStashAdminService;
-import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
+import org.ranjangeorge.mystash.service.impl.support.lang.DateStringConverter;
 
-import java.util.Date;
+import javax.json.Json;
+import javax.json.JsonObject;
+import java.math.BigDecimal;
+import java.time.Instant;
 
 public class DebitTest {
+
+    private static final double INITIAL_CREDIT = 100d;
 
     private IStashAdminService stashAdminService;
 
@@ -23,7 +28,10 @@ public class DebitTest {
     public void setUp() {
 
         stashAdminService = ServiceLookup.getService(IStashAdminService.class);
-        stashId = stashAdminService.createNewStash("my-stash-1");
+        stashId = stashAdminService.createNewStash(
+                "my-stash-1",
+                "george.ranjan@gmail.com",
+                BigDecimal.valueOf(INITIAL_CREDIT));
         //
         ledgerService = ServiceLookup.getService(ILedgerService.class);
     }
@@ -38,15 +46,17 @@ public class DebitTest {
     @Test
     public void testSimpleDebitIsSuccessful() {
 
+        JsonObject debit = Json.createObjectBuilder()
+                .add("amount", 100d)
+                .add("description", "Random Credit")
+                .add("txndate", new DateStringConverter().toString(Instant.now())).build();
+
         ledgerService.debit(
                 stashId,
-                new LedgerEntryDTO(
-                        100d,
-                        "Random Credit",
-                        new Date()));
+                debit);
         //
-        double balance = ledgerService.fetchBalance(stashId);
+        BigDecimal balance = ledgerService.fetchBalance(stashId);
         //
-        Assert.assertEquals(-100d, balance, 0d);
+        Assert.assertEquals(BigDecimal.valueOf(INITIAL_CREDIT - 100d), balance);
     }
 }

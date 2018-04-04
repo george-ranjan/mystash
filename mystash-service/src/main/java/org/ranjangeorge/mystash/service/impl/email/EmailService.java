@@ -13,21 +13,20 @@ import java.util.Properties;
 @UsecaseNames(Usecase.SEND_EMAIL)
 public class EmailService implements IEmailService {
 
-    private String mailhost;
+    private String mailhost = "smtp.gmail.com";
 
-    private int mailport;
+    private int mailport = 465;
 
-    private String smtpuser;
+    private String smtpuser = "george.ranjan@gmail.com";
 
-    private String smtppassword;
+    private String smtppassword = "!lucile123";
 
     @Override
     public void sendEmail(
             @NotNull final String from,
             @NotNull final String to,
             @NotNull final String subject,
-            @NotNull final String text)
-            throws MessagingException {
+            @NotNull final String text) {
 
         // Get a Session object
         Properties props = new Properties();
@@ -46,12 +45,17 @@ public class EmailService implements IEmailService {
         session.setDebug(true);
 
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(from));
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-        msg.setSubject(subject);
-        msg.setText(text);
+        try {
+            msg.setFrom(new InternetAddress(from));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.setSubject(subject);
+            msg.setText(text);
 
-        // send the thing off
-        Transport.send(msg);
+            // send the thing off
+            Transport.send(msg);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

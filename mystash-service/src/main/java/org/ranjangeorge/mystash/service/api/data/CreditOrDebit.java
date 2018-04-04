@@ -1,21 +1,23 @@
 package org.ranjangeorge.mystash.service.api.data;
 
+import java.math.BigDecimal;
+
 public enum CreditOrDebit {
 
     CREDIT {
         @Override
-        public double applyTo(double balance, double amount) {
-            return balance + amount;
+        public BigDecimal applyTo(BigDecimal balance, BigDecimal amount) {
+            return balance.add(amount);
         }
     },
     DEBIT {
         @Override
-        public double applyTo(double balance, double amount) {
-            return balance - amount;
+        public BigDecimal applyTo(BigDecimal balance, BigDecimal amount) {
+            return balance.subtract(amount);
         }
     };
 
-    public abstract double applyTo(
-            final double balance,
-            final double amount);
+    public abstract BigDecimal applyTo(
+            final BigDecimal balance,
+            final BigDecimal amount);
 }

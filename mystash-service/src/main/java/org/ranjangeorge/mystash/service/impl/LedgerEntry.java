@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class LedgerEntry {
 
     private CreditOrDebit creditOrDebit;
 
-    private double amount;
+    private BigDecimal amount;
 
     private String description;
 
@@ -31,7 +32,7 @@ public class LedgerEntry {
 
     public LedgerEntry(
             Stash stash, @NotNull final CreditOrDebit creditOrDebit,
-            final double amount,
+            final BigDecimal amount,
             @NotNull final String description,
             @NotNull final Date date) {
 
@@ -56,7 +57,7 @@ public class LedgerEntry {
         return CreditOrDebit.DEBIT.equals(creditOrDebit);
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 

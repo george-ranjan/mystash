@@ -5,17 +5,20 @@ import org.ranjangeorge.mystash.service.api.data.LedgerEntryDTO;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
+import javax.json.JsonObject;
+import java.math.BigDecimal;
+
 public interface ILedgerService {
 
     @UsecaseName(value = Usecase.CREDIT)
     void credit(
             @NotNull final String stashId,
-            @NotNull final LedgerEntryDTO entry);
+            @NotNull final JsonObject credit);
 
     @UsecaseName(value = Usecase.DEBIT)
     void debit(
             @NotNull final String stashId,
-            @NotNull final LedgerEntryDTO entry);
+            @NotNull final JsonObject debit);
 
     @UsecaseName(value = Usecase.TRANSFER)
     void transfer(
@@ -24,7 +27,7 @@ public interface ILedgerService {
             @NotNull final LedgerEntryDTO ledgerEntryDTO);
 
     @UsecaseName(value = Usecase.FETCH_BALANCE)
-    double fetchBalance(
+    BigDecimal fetchBalance(
             @NotNull final String stashId);
 
 }
