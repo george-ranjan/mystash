@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.ranjangeorge.mystash.service.api.IStashAdminService;
 import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
 
-import java.util.Set;
+import javax.json.JsonArray;
 
 public class CreateStashTest {
 
@@ -35,7 +35,7 @@ public class CreateStashTest {
                 "george.ranjan@gmail.com",
                 100L);
         //
-        Set<String> stashes = stashAdminService.listAllStashes();
+        JsonArray stashes = stashAdminService.listAllStashes();
         //
         Assert.assertEquals(1, stashes.size());
     }

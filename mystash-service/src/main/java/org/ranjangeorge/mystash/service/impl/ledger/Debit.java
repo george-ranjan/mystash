@@ -6,17 +6,18 @@ import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
 import javax.json.JsonObject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.text.ParseException;
 
 @UsecaseNames(Usecase.DEBIT)
 @Path("/ledger/debit")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class Debit extends TxnBase {
 
     @POST
-    @PathParam("/{stash-id}")
+    @Path("/{stash-id}")
     public void debit(
             @PathParam("{stash-id}") @NotNull final String stashId,
             @NotNull final JsonObject debit)

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
-import java.util.Set;
+import javax.json.JsonArray;
 
 public interface IStashAdminService {
 
@@ -15,7 +15,7 @@ public interface IStashAdminService {
             long initialCredit);
 
     @UsecaseName(Usecase.LIST_ALL_STASHES)
-    Set<String> listAllStashes();
+    JsonArray listAllStashes();
 
     @UsecaseName(Usecase.DELETE_ALL_STASHES)
     void deleteAllStashes();
