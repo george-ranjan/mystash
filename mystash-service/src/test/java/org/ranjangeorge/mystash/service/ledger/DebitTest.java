@@ -16,7 +16,7 @@ import java.time.Instant;
 
 public class DebitTest {
 
-    private static final double INITIAL_CREDIT = 100d;
+    private static final long INITIAL_CREDIT = 100L;
 
     private IStashAdminService stashAdminService;
 
@@ -31,7 +31,7 @@ public class DebitTest {
         stashId = stashAdminService.createNewStash(
                 "my-stash-1",
                 "george.ranjan@gmail.com",
-                BigDecimal.valueOf(INITIAL_CREDIT));
+                INITIAL_CREDIT);
         //
         ledgerService = ServiceLookup.getService(ILedgerService.class);
     }
@@ -47,7 +47,7 @@ public class DebitTest {
     public void testSimpleDebitIsSuccessful() {
 
         JsonObject debit = Json.createObjectBuilder()
-                .add("amount", 100d)
+                .add("amount", BigDecimal.valueOf(100d))
                 .add("description", "Random Credit")
                 .add("txndate", new DateStringConverter().toString(Instant.now())).build();
 
@@ -55,8 +55,10 @@ public class DebitTest {
                 stashId,
                 debit);
         //
-        BigDecimal balance = ledgerService.fetchBalance(stashId);
+        long actualBalance = ledgerService.fetchBalance(stashId);
         //
-        Assert.assertEquals(BigDecimal.valueOf(INITIAL_CREDIT - 100d), balance);
+        long expectedBalance = INITIAL_CREDIT - 100L;
+
+        Assert.assertEquals(expectedBalance, actualBalance);
     }
 }

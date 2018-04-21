@@ -11,12 +11,11 @@ import org.ranjangeorge.mystash.service.impl.support.lang.DateStringConverter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.math.BigDecimal;
 import java.time.Instant;
 
 public class CreditTest {
 
-    private static final double INITIAL_CREDIT = 100d;
+    private static final long INITIAL_CREDIT = 100L;
 
     private IStashAdminService stashAdminService;
 
@@ -31,7 +30,7 @@ public class CreditTest {
         stashId = stashAdminService.createNewStash(
                 "my-stash-1",
                 "george.ranjan@gmail.com",
-                BigDecimal.valueOf(INITIAL_CREDIT));
+                INITIAL_CREDIT);
         //
         ledgerService = ServiceLookup.getService(ILedgerService.class);
     }
@@ -54,8 +53,9 @@ public class CreditTest {
                 stashId,
                 credit);
         //
-        BigDecimal balance = ledgerService.fetchBalance(stashId);
+        long actualBalance = ledgerService.fetchBalance(stashId);
         //
-        Assert.assertEquals(BigDecimal.valueOf(INITIAL_CREDIT + 100d), balance);
+        long expectedBalance = INITIAL_CREDIT + 100L;
+        Assert.assertEquals(expectedBalance, actualBalance);
     }
 }

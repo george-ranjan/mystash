@@ -11,7 +11,6 @@ import org.ranjangeorge.mystash.service.impl.support.db.SessionFactoryHolder;
 import org.ranjangeorge.mystash.service.impl.support.lang.DateStringConverter;
 
 import javax.json.JsonObject;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
@@ -76,11 +75,11 @@ abstract class TxnBase {
             @NotNull final JsonObject ledgerEntryJson)
             throws ParseException {
 
-        BigDecimal amount = ledgerEntryJson.getJsonNumber("amount").bigDecimalValue();
+        long amount = ledgerEntryJson.getJsonNumber("amount").longValue();
         String description = ledgerEntryJson.getString("description");
         Instant txnDate = new DateStringConverter().toInstant(ledgerEntryJson.getString("txndate"));
 
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("Ledger entry amount specified should always be > 0 ");
         }
 

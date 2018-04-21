@@ -6,7 +6,6 @@ import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseName;
 
 import javax.json.JsonObject;
-import java.math.BigDecimal;
 
 public interface ILedgerService {
 
@@ -27,7 +26,7 @@ public interface ILedgerService {
             @NotNull final LedgerEntryDTO ledgerEntryDTO);
 
     @UsecaseName(value = Usecase.FETCH_BALANCE)
-    BigDecimal fetchBalance(
+    long fetchBalance(
             @NotNull final String stashId);
 
 }

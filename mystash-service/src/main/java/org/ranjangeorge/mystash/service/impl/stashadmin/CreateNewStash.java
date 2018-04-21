@@ -10,7 +10,6 @@ import org.ranjangeorge.mystash.service.impl.LedgerEntry;
 import org.ranjangeorge.mystash.service.impl.Stash;
 import org.ranjangeorge.mystash.service.impl.support.db.SessionFactoryHolder;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @UsecaseNames(Usecase.CREATE_NEW_STASH)
@@ -19,7 +18,7 @@ public class CreateNewStash {
     public String createNewStash(
             @NotNull final String stashName,
             @NotNull final String ownerEmail,
-            @NotNull final BigDecimal initialCredit) {
+            final long initialCredit) {
 
         Session session = SessionFactoryHolder.getCurrentSession();
         Transaction transaction = session.beginTransaction();

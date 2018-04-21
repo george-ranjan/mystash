@@ -3,7 +3,6 @@ package org.ranjangeorge.mystash.service.impl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +18,7 @@ public class Stash {
 
     private String ownerEmail;
 
-    private BigDecimal balance = BigDecimal.ZERO;
+    private long balance = 0L;
 
     @OneToMany(mappedBy = "stash", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private final List<LedgerEntry> ledger = new ArrayList<>();
@@ -47,7 +46,7 @@ public class Stash {
         return ownerEmail;
     }
 
-    public BigDecimal getBalance() {
+    public long getBalance() {
         return balance;
     }
 
