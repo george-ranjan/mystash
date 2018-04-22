@@ -12,7 +12,6 @@
     <bytecodeTargetLevel>
       <module name="mystash" target="1.8" />
       <module name="mystash-service" target="1.8" />
-      <module name="mystash-service-api" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

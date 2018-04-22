@@ -35,9 +35,13 @@ public class ListAllStashes {
             List<Stash> stashList = (List<Stash>) session.createCriteria(Stash.class).list();
 
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-            stashList.stream()
-                    .map(Stash::getName)
-                    .forEach(arrayBuilder::add);
+            stashList.forEach(
+                    stash -> arrayBuilder.add(
+                            Json.createObjectBuilder()
+                                    .add("name", stash.getName())
+                                    .add("email", stash.getOwnerEmail())
+                                    .add("balance", stash.getBalance()))
+            );
 
             // Commit
             transaction.commit();

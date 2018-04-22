@@ -10,15 +10,23 @@ import org.ranjangeorge.mystash.service.impl.LedgerEntry;
 import org.ranjangeorge.mystash.service.impl.Stash;
 import org.ranjangeorge.mystash.service.impl.support.db.SessionFactoryHolder;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.Date;
 
 @UsecaseNames(Usecase.CREATE_NEW_STASH)
+@Path("/stash")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public class CreateNewStash {
 
-    public String createNewStash(
-            @NotNull final String stashName,
-            @NotNull final String ownerEmail,
-            final long initialCredit) {
+    @POST
+    public JsonObject createNewStash(
+            @NotNull @FormParam("name") final String stashName,
+            @NotNull @FormParam("email") final String ownerEmail,
+            final @FormParam("initialCredit") long initialCredit) {
 
         Session session = SessionFactoryHolder.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -41,7 +49,9 @@ public class CreateNewStash {
             // Commit
             transaction.commit();
 
-            return stashId;
+            return Json.createObjectBuilder()
+                    .add("stashId", stashId)
+                    .build();
 
         } catch (RuntimeException e) {
 

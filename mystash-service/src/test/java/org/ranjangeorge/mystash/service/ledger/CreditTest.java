@@ -30,7 +30,7 @@ public class CreditTest {
         stashId = stashAdminService.createNewStash(
                 "my-stash-1",
                 "george.ranjan@gmail.com",
-                INITIAL_CREDIT);
+                INITIAL_CREDIT).getString("stashId");
         //
         ledgerService = ServiceLookup.getService(ILedgerService.class);
     }
