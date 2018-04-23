@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ledger</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/w3css/w3.css">
+    <script language="JavaScript" src="resources/jquery/jquery-3.3.1.js"></script>
+    <script language="JavaScript" src="resources/dropdown.js"></script>
+
+    <script language="JavaScript">
+
+        function populateStashesDropDown(data) {
+
+            populateDropDown(
+                $("#stash"),
+                "id",
+                "name",
+                data);
+        }
+
+        function listStashes() {
+
+            $.ajax({
+                type: "GET",
+                url: "rest-api/stash/list"
+            }).done(function (data) {
+
+                populateStashesDropDown(data);
+
+            }).fail(function () {
+
+            }).always(function () {
+
+            });
+        }
+
+        function buildPostData() {
+
+            return JSON.stringify({
+                stashId: $("#stash").val(),
+                amount: parseInt($("#amount").val()),
+                description: $("#description").val(),
+                txndate: $("#txndate").val()
+            });
+        }
+
+        function clearInputFields() {
+            $("#amount").val("");
+            $("#description").val("");
+            $("#txndate").val("");
+        }
+
+        function postToLedger(creditOrDebit) {
+
+            var postData = buildPostData();
+
+            $.ajax({
+
+                type: "POST",
+                contentType: 'application/json',
+                url: "rest-api/ledger/" + creditOrDebit,
+                data: postData
+
+            }).done(function () {
+
+                clearInputFields();
+
+            }).fail(function () {
+
+            }).always(function () {
+
+            });
+        }
+
+        function credit() {
+
+            postToLedger("credit");
+        }
+
+        function debit() {
+
+            postToLedger("debit");
+        }
+
+    </script>
+
+</head>
+
+<body onload="listStashes()">
+
+<div class="w3-container">
+    <h1>Ledger</h1>
+</div>
+
+<div class="w3-container w3-row-padding">
+
+    <div class="w3-quarter">
+        <label for="stash">Stash</label>
+        <select id="stash" class="w3-input">
+        </select>
+    </div>
+
+    <div class="w3-quarter">
+        <label for="amount">Amount</label>
+        <input id="amount" class="w3-input" type="number">
+    </div>
+
+    <div class="w3-quarter">
+        <label for="description">Description</label>
+        <input id="description" class="w3-input" type="text">
+    </div>
+
+    <div class="w3-quarter">
+        <label for="txndate">Date</label>
+        <input id="txndate" class="w3-input" type="date">
+    </div>
+
+</div>
+
+<br/>
+
+<div class="w3-container">
+    <button class="w3-button w3-deep-purple" onclick="credit()">Credit</button>
+    <button class="w3-button w3-deep-purple" onclick="debit()">Debit</button>
+</div>
+
+<div class="w3-container">
+
+</div>
+
+</body>
+</html>

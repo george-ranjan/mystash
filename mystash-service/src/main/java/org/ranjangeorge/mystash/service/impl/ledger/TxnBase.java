@@ -24,7 +24,6 @@ abstract class TxnBase {
     }
 
     void recordEntry(
-            @NotNull final String stashId,
             @NotNull final CreditOrDebit creditOrDebit,
             @NotNull final JsonObject ledgerEntryJson)
             throws ParseException {
@@ -36,7 +35,7 @@ abstract class TxnBase {
         try {
 
             // Fetch Stash
-            Stash stash = session.load(Stash.class, stashId);
+            Stash stash = session.load(Stash.class, ledgerEntryJson.getString("stashId"));
             if (stash == null) {
                 throw new IllegalArgumentException("Invalid id specified for stash");
             }

@@ -37,6 +37,11 @@ public class Stash {
     }
 
     @NotNull
+    public String getId() {
+        return id;
+    }
+
+    @NotNull
     public String getName() {
         return name;
     }

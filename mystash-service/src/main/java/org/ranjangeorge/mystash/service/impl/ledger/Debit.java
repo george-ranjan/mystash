@@ -5,8 +5,12 @@ import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
+import javax.json.Json;
 import javax.json.JsonObject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.text.ParseException;
 
@@ -17,12 +21,12 @@ import java.text.ParseException;
 public class Debit extends TxnBase {
 
     @POST
-    @Path("/{stash-id}")
-    public void debit(
-            @PathParam("{stash-id}") @NotNull final String stashId,
+    public JsonObject debit(
             @NotNull final JsonObject debit)
             throws ParseException {
 
-        recordEntry(stashId, CreditOrDebit.DEBIT, debit);
+        recordEntry(CreditOrDebit.DEBIT, debit);
+
+        return Json.createObjectBuilder().build();
     }
 }

@@ -45,13 +45,12 @@ public class CreditTest {
     public void testSimpleCreditIsSuccessful() {
 
         JsonObject credit = Json.createObjectBuilder()
+                .add("stashId", stashId)
                 .add("amount", 100d)
                 .add("description", "Random Credit")
                 .add("txndate", new DateStringConverter().toString(Instant.now())).build();
 
-        ledgerService.credit(
-                stashId,
-                credit);
+        ledgerService.credit(credit);
         //
         long actualBalance = ledgerService.fetchBalance(stashId);
         //

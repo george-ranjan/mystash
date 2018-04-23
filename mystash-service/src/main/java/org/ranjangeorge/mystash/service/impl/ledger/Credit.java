@@ -5,6 +5,7 @@ import org.ranjangeorge.mystash.service.api.data.CreditOrDebit;
 import org.ranjangeorge.mystash.service.api.support.Usecase;
 import org.ranjangeorge.mystash.service.api.support.UsecaseNames;
 
+import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -17,12 +18,12 @@ import java.text.ParseException;
 public class Credit extends TxnBase {
 
     @POST
-    @Path("/{stash-id}")
-    public void credit(
-            @PathParam("{stash-id}") @NotNull final String stashId,
+    public JsonObject credit(
             @NotNull final JsonObject credit)
             throws ParseException {
 
-        recordEntry(stashId, CreditOrDebit.CREDIT, credit);
+        recordEntry(CreditOrDebit.CREDIT, credit);
+
+        return Json.createObjectBuilder().build();
     }
 }

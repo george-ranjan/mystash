@@ -2,20 +2,21 @@ package org.ranjangeorge.mystash.service.impl.support.lang;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
 public class DateStringConverter {
+
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
 
     @NotNull
     public Date toDate(
             @NotNull final String dateString)
             throws ParseException {
 
-        return DateFormat
-                .getInstance()
+        return new SimpleDateFormat(DATE_PATTERN)
                 .parse(dateString);
     }
 
@@ -24,8 +25,7 @@ public class DateStringConverter {
             @NotNull final String dateString)
             throws ParseException {
 
-        return DateFormat
-                .getInstance()
+        return new SimpleDateFormat(DATE_PATTERN)
                 .parse(dateString)
                 .toInstant();
     }
@@ -34,8 +34,7 @@ public class DateStringConverter {
     public String toString(
             @NotNull final Instant instant) {
 
-        return DateFormat
-                .getInstance()
+        return new SimpleDateFormat(DATE_PATTERN)
                 .format(new Date(instant.toEpochMilli()));
     }
 }

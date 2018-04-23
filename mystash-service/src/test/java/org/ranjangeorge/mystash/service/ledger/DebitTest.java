@@ -47,13 +47,12 @@ public class DebitTest {
     public void testSimpleDebitIsSuccessful() {
 
         JsonObject debit = Json.createObjectBuilder()
+                .add("stashId", stashId)
                 .add("amount", BigDecimal.valueOf(100d))
                 .add("description", "Random Credit")
                 .add("txndate", new DateStringConverter().toString(Instant.now())).build();
 
-        ledgerService.debit(
-                stashId,
-                debit);
+        ledgerService.debit(debit);
         //
         long actualBalance = ledgerService.fetchBalance(stashId);
         //

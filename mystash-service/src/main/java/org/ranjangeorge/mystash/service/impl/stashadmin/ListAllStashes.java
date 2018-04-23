@@ -38,6 +38,7 @@ public class ListAllStashes {
             stashList.forEach(
                     stash -> arrayBuilder.add(
                             Json.createObjectBuilder()
+                                    .add("id", stash.getId())
                                     .add("name", stash.getName())
                                     .add("email", stash.getOwnerEmail())
                                     .add("balance", stash.getBalance()))

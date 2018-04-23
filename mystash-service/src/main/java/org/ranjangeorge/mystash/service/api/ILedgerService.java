@@ -11,12 +11,10 @@ public interface ILedgerService {
 
     @UsecaseName(value = Usecase.CREDIT)
     void credit(
-            @NotNull final String stashId,
             @NotNull final JsonObject credit);
 
     @UsecaseName(value = Usecase.DEBIT)
     void debit(
-            @NotNull final String stashId,
             @NotNull final JsonObject debit);
 
     @UsecaseName(value = Usecase.TRANSFER)
