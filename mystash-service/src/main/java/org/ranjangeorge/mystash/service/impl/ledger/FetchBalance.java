@@ -17,7 +17,7 @@ public class FetchBalance {
 
         try {
 
-            long balance = session.load(Stash.class, stashId).getBalance();
+            long balance = session.get(Stash.class, stashId).getBalance();
 
             // Commit
             transaction.commit();

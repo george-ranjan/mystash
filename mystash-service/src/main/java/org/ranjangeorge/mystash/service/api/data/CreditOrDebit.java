@@ -11,6 +11,11 @@ public enum CreditOrDebit {
     DEBIT {
         @Override
         public long applyTo(long balance, long amount) {
+
+            if (amount > balance) {
+                throw new IllegalArgumentException("You cannot debit more than the available balance");
+            }
+
             return balance - amount;
         }
     };

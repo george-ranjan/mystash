@@ -31,16 +31,17 @@ abstract class TxnBase {
         Session session = SessionFactoryHolder.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        String stashOwnerEmail = null;
         try {
 
             // Fetch Stash
-            Stash stash = session.load(Stash.class, ledgerEntryJson.getString("stashId"));
+            if (!ledgerEntryJson.containsKey("stashId")) {
+                throw new IllegalArgumentException("No stash id specified");
+            }
+
+            Stash stash = session.get(Stash.class, ledgerEntryJson.getString("stashId"));
             if (stash == null) {
                 throw new IllegalArgumentException("Invalid id specified for stash");
             }
-
-            stashOwnerEmail = stash.getOwnerEmail();
 
             // Record Entry
             LedgerEntry ledgerEntry = toLedgerEntry(
@@ -58,10 +59,6 @@ abstract class TxnBase {
 
             // Oops! Some problem, rollback
             transaction.rollback();
-
-            // Send Email
-            assert stashOwnerEmail != null
-                    : "Stash should always have an owner";
 
             throw e;
         }

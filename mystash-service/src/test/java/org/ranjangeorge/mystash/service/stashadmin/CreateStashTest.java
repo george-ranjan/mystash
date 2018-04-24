@@ -4,38 +4,46 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.ranjangeorge.mystash.service.api.IStashAdminService;
-import org.ranjangeorge.mystash.service.impl.support.ServiceLookup;
+import org.ranjangeorge.mystash.service.impl.stashadmin.CreateNewStash;
+import org.ranjangeorge.mystash.service.impl.stashadmin.DeleteAllStashes;
+import org.ranjangeorge.mystash.service.impl.stashadmin.ListAllStashes;
 
 import javax.json.JsonArray;
 
 public class CreateStashTest {
 
-    private IStashAdminService stashAdminService;
+    private CreateNewStash createNewStash;
+
+    private DeleteAllStashes deleteAllStashes;
+
+    private ListAllStashes listAllStashes;
 
     @Before
     public void setUp() {
 
-        stashAdminService = ServiceLookup.getService(IStashAdminService.class);
-        stashAdminService.deleteAllStashes();
+        createNewStash = new CreateNewStash();
+        deleteAllStashes = new DeleteAllStashes();
+        listAllStashes = new ListAllStashes();
+        //
+        deleteAllStashes.deleteAllStashes();
     }
 
     @After
     public void teardown() {
 
-        stashAdminService.deleteAllStashes();
+        deleteAllStashes.deleteAllStashes();
     }
 
 
     @Test
     public void testCreateNewStash() {
 
-        stashAdminService.createNewStash(
+        createNewStash.createNewStash(
                 "my-new-stash",
                 "george.ranjan@gmail.com",
                 100L);
         //
-        JsonArray stashes = stashAdminService.listAllStashes();
+        JsonArray stashes = listAllStashes.listAllStashes();
         //
         Assert.assertEquals(1, stashes.size());
     }
