@@ -33,9 +33,11 @@ public abstract class TxnBaseTest {
         deleteAllStashes = new DeleteAllStashes();
         //
         stashId = createNewStash.createNewStash(
-                "my-stash-1",
-                "george.ranjan@gmail.com",
-                INITIAL_CREDIT).getString("stashId");
+                Json.createObjectBuilder()
+                        .add("name", "my-stash-1")
+                        .add("email", "george.ranjan@gmail.com")
+                        .add("initialCredit", INITIAL_CREDIT).build())
+                .getString("id");
     }
 
     @After
