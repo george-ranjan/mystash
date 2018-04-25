@@ -28,16 +28,28 @@ abstract class TxnBase {
             @NotNull final JsonObject ledgerEntryJson)
             throws ParseException {
 
+        if (!ledgerEntryJson.containsKey("stashId")) {
+            throw new IllegalArgumentException("No stash id specified");
+        }
+
+        if (!ledgerEntryJson.containsKey("amount")) {
+            throw new IllegalArgumentException("No amount specified");
+        }
+
+        if (!ledgerEntryJson.containsKey("txndate")) {
+            throw new IllegalArgumentException("No transaction date specified");
+        }
+
+        if (!ledgerEntryJson.containsKey("description")) {
+            throw new IllegalArgumentException("No description specified");
+        }
+
         Session session = SessionFactoryHolder.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
         try {
 
             // Fetch Stash
-            if (!ledgerEntryJson.containsKey("stashId")) {
-                throw new IllegalArgumentException("No stash id specified");
-            }
-
             Stash stash = session.get(Stash.class, ledgerEntryJson.getString("stashId"));
             if (stash == null) {
                 throw new IllegalArgumentException("Invalid id specified for stash");
