@@ -12,6 +12,8 @@ import javax.json.JsonObject;
 import java.text.ParseException;
 import java.time.Instant;
 
+import static org.junit.Assert.assertEquals;
+
 public class DebitTest extends TxnBaseTest {
 
 
@@ -46,7 +48,7 @@ public class DebitTest extends TxnBaseTest {
         //
         long expectedBalance = INITIAL_CREDIT - 100L;
 
-        Assert.assertEquals(expectedBalance, actualBalance);
+        assertEquals(expectedBalance, actualBalance);
     }
 
     @Test

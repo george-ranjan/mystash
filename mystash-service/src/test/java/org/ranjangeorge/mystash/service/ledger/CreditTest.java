@@ -1,6 +1,5 @@
 package org.ranjangeorge.mystash.service.ledger;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ranjangeorge.mystash.service.impl.ledger.Credit;
@@ -11,6 +10,8 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import java.text.ParseException;
 import java.time.Instant;
+
+import static org.junit.Assert.assertEquals;
 
 public class CreditTest extends TxnBaseTest {
 
@@ -46,6 +47,6 @@ public class CreditTest extends TxnBaseTest {
         long actualBalance = fetchBalance.fetchBalance(stashId);
         //
         long expectedBalance = INITIAL_CREDIT + 100L;
-        Assert.assertEquals(expectedBalance, actualBalance);
+        assertEquals(expectedBalance, actualBalance);
     }
 }

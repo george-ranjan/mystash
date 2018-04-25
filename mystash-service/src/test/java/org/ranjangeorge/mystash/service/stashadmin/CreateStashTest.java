@@ -1,7 +1,6 @@
 package org.ranjangeorge.mystash.service.stashadmin;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ranjangeorge.mystash.service.impl.stashadmin.CreateNewStash;
@@ -9,6 +8,9 @@ import org.ranjangeorge.mystash.service.impl.stashadmin.DeleteAllStashes;
 import org.ranjangeorge.mystash.service.impl.stashadmin.ListAllStashes;
 
 import javax.json.JsonArray;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CreateStashTest {
 
@@ -45,6 +47,10 @@ public class CreateStashTest {
         //
         JsonArray stashes = listAllStashes.listAllStashes();
         //
-        Assert.assertEquals(1, stashes.size());
+        assertEquals(1, stashes.size());
+        assertNotNull("my-new-stash", stashes.getJsonObject(0).getString("id"));
+        assertEquals("my-new-stash", stashes.getJsonObject(0).getString("name"));
+        assertEquals("george.ranjan@gmail.com", stashes.getJsonObject(0).getString("email"));
+        assertEquals(100L, stashes.getJsonObject(0).getJsonNumber("balance").longValue());
     }
 }
